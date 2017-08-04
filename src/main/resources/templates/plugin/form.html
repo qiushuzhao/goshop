@@ -1,0 +1,140 @@
+#macro( form_text $md_text $llen $ilen $flen)
+<div class="form-group #if( $flen != 0) col-sm-${flen} #end">
+    <label class="col-sm-${llen} control-label" for="$md_text.id">$md_text.label
+        #if( $md_text.not_null)
+        <span class="text-red">*</span>
+        #end
+    </label>
+    <div class="col-sm-${ilen}">
+        <input type="text" class="form-control" id="$md_text.id" name="$md_text.name"
+               #if( $md_text.value)
+               value="$md_text.value"
+               #else
+               placeholder="$md_text.place_holder"
+               #end
+               #if( $md_text.disabled)
+               disabled="$md_text.disabled"
+               #end
+                >
+    </div>
+</div>
+#end
+
+#macro( form_select $md_select $llen $ilen $flen)
+<div class="form-group #if( $flen != 0) col-sm-${flen} #end">
+    <label class="col-sm-${llen} control-label" for="$md_select.id">$md_select.label
+        #if( $md_select.not_null)
+        <span class="text-red">*</span>
+        #end
+    </label>
+    <div class="col-sm-${ilen}">
+        <select class="form-control" id="$md_select.id" name="$md_select.name">
+            <option value="">请选择</option>
+            #foreach( $data in $md_select.ds)
+            <option value="$data.value"
+                    #if( $md_select.value && $data.value == $md_select.value)
+                    selected = "selected"
+                    #end
+                    >$data.label</option>
+            #end
+        </select>
+    </div>
+</div>
+#end
+
+#macro( form_textarea $md_textarea $llen $ilen $flen)
+<div class="form-group #if( $flen != 0) col-sm-${flen} #end">
+    <label class="col-sm-${llen} control-label" for="$md_textarea.id">$md_textarea.label
+        #if( $md_textarea.not_null)
+        <span class="text-red">*</span>
+        #end
+    </label>
+
+    <div class="col-sm-${ilen}">
+        <textarea class="form-control" cols="$md_textarea.cols" id="$md_textarea.id" name="$md_textarea.name"
+                  #if( $md_textarea.value)
+                  value="$md_textarea.value"
+                  #end
+                  #if( $md_textarea.disabled)
+                  disabled="$md_textarea.disabled"
+                  #end></textarea>
+    </div>
+</div>
+#end
+
+#macro( form_separator)
+<div class="form-group-separator"></div>
+#end
+
+#macro( form_file $md_file $llen $ilen $flen)
+<div class="form-group #if( $flen != 0) col-sm-${flen} #end">
+    <label class="col-sm-${llen} control-label" for="$md_file.id">$md_file.label
+        #if( $md_file.not_null)
+        <span class="text-red">*</span>
+        #end
+    </label>
+
+    <div class="col-sm-${ilen}">
+        <input type="file" class="form-control" id="$md_file.id" name="$md_file.name">
+        <p class="help-block">$md_file.remark
+        </p>
+    </div>
+</div>
+#end
+
+#macro( form_radio $md_radio $llen $ilen $flen)
+<div class="form-group #if( $flen != 0) col-sm-${flen} #end">
+    <label class="col-sm-${llen} control-label">$md_radio.label</label>
+
+    <div class="col-sm-${ilen}">
+
+        <p>
+            #foreach( $data in $md_radio.ds)
+            <label class="radio-inline">
+                <input type="radio" value="$data.value" name="$md_radio.name"
+                       #if(( $md_radio.value && $data.value == $md_radio.value) || $data.checked)
+                       checked
+                       #end
+                        >
+                $data.label
+            </label>
+            #end
+        </p>
+
+    </div>
+</div>
+#end
+
+#macro( form_date $md_date $llen $ilen $flen)
+<div class="form-group #if( $flen != 0) col-sm-${flen} #end">
+    <label class="col-sm-${llen} control-label" for="$md_date.id">$md_date.label</label>
+    <div class="col-sm-$ilen">
+        <input type="text" id="$md_date.id" name="$md_date.name"  class="form-control Wdate input-sm" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+               #if( $md_date.value)
+               value="$md_date.value"
+               #end
+               #if( $md_date.disabled)
+               disabled="$md_date.disabled"
+               #end
+                />
+    </div>
+</div>
+#end
+
+#macro( form $md $llen $ilen $flen)
+    #if( $md.type == "text")
+        #form_text( $md, $llen, $ilen, $flen)
+    #elseif( $md.type == "select")
+        #form_select( $md, $llen, $ilen, $flen)
+    #elseif( $md.type == "textarea")
+        #form_textarea( $md, $llen, $ilen, $flen)
+    #elseif( $md.type == "separator")
+        #form_separator()
+    #elseif( $md.type == "file")
+        #form_file( $md, $llen, $ilen, $flen)
+    #elseif( $md.type == "radio")
+        #form_radio( $md, $llen, $ilen, $flen)
+    #elseif( $md.type == "date")
+        #form_date( $md, $llen, $ilen, $flen)
+    #end
+#end

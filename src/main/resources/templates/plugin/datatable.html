@@ -1,0 +1,175 @@
+#macro( createDataTable $datatable)
+
+#set( $tableHeads = $datatable.tableHead)
+#set( $thKeys = $datatable.theadKey)
+#set( $ajaxUrl = $datatable.ajaxUrl)
+#set( $colExt = $datatable.columnExt)
+#set( $toolbar = $datatable.tableToolbar)
+
+<script>
+    var tablePrefix_${datatable.id} = "#" + "$datatable.id" + "_";
+
+    var columns_${datatable.id} = [];
+    var columnDefs_${datatable.id} = [];
+
+    var cols_${datatable.id} = [];
+
+    #foreach( $tk in $thKeys)
+    cols_${datatable.id}.push( "$tk");
+    #end
+
+    var extBtnObj_${datatable.id} = {};
+    #if( $colExt)
+    #foreach( $extBtnKey in $colExt.extBtn.keySet())
+    extBtnObj_${datatable.id}["$extBtnKey"] = "$colExt.extBtn.get( $extBtnKey)";
+    #end
+    #end
+
+    var ind = 0;
+    #foreach( $th in $tableHeads)
+    #if( $th.type == "date")
+        columnDefs_${datatable.id}.push({
+            "targets": [ind],
+            "data": "$th.key",
+            "render": function(data, type, full) {
+                var d = new Date(data);
+
+                return d != null ? date2String(d) : data;
+            }
+        });
+    #elseif( $th.type == "link")
+        columnDefs_${datatable.id}.push({
+            "targets": [ind],
+            "data": "$th.key",
+            "render": function(data, type, full) {
+                var url = "#springUrl('')";
+                url += "/" + data;
+                return "<a href='" + url + "'>link</a>";
+            }
+        });
+    #elseif( $th.type == "image")
+        columnDefs_${datatable.id}.push({
+            "targets": [ind],
+            "data": "$th.key",
+            "render": function(data, type, full) {
+                return "<img src='" + data + "'/>";
+            }
+        });
+    #elseif( $th.type == "operate")
+        columnDefs_${datatable.id}.push({
+            "targets": [ind],
+            "data": "$colExt.extKey",
+            "render": function(data, type, full) {
+                var url = "#springUrl('')";
+                var extUrl = "$colExt.extUrl";
+
+                var colInd = 0;
+                var str = "";
+                for( var key in extBtnObj_${datatable.id}) {
+                    var label = extBtnObj_${datatable.id}[key];
+                    var turl = url + extUrl + "/" + key + ".htm?rid=${datatable.id}&key=" + data
+                    str += "<a onclick=openFrame('" + turl + "') " + "class='btn " + booca.table_column_operate_colors[colInd++] + " btn-sm btn-icon'>" + label + "</a>"
+                }
+                return str;
+            }
+        });
+    #end
+    ind ++;
+    #end
+
+    for (var index in cols_${datatable.id}) {
+        columns_${datatable.id}.push({"data": cols_${datatable.id}[index], "bSortable": false});
+    }
+
+    var datatable_${datatable.id} = null;
+
+    function ajaxSubmit_${datatable.id}(params) {
+
+        var conf = {
+            "processing": true,
+            "searching": false,
+            "serverSide": true,
+            "ordering": false,
+
+//            "lengthChange": true,
+//            "paging": false,
+//            "info": false,
+
+            "ajax": {
+                url: "#springUrl($ajaxUrl)",
+                type: "POST",
+                data: params
+            },
+            "columns": columns_${datatable.id},
+            "columnDefs": columnDefs_${datatable.id},
+            initComplete: function (setting, json) {
+                //初始化完成之后替换原先的搜索框。
+                //本来想把form标签放到hidden_filter 里面，因为事件绑定的缘故，还是拿出来。
+//                $(tablePrefix + "filter").html("<button class='btn btn-primary' onclick='openFrame()'>Primary</button>");
+//                var url = "#springUrl('/system/layer.htm')";
+                $(tablePrefix_${datatable.id} + "length").css("width", "100%");
+                var colInd = 0;
+                $(tablePrefix_${datatable.id} + "length").append(
+                    "<span style='float: right;'>"
+                    #if( $toolbar)
+                    #set( $toolbarUrl = $toolbar.url)
+                    #set( $tools = $toolbar.tools)
+                    #foreach( $toolAction in $tools.keySet())
+                    #set( $toolUrl = $toolbar.url + "/" + $toolAction + ".htm?rid=" + ${datatable.id})
+                    + "<button class='btn " + booca.table_tool_colors[colInd++] + "' onclick='openFrame(\"#springUrl($toolUrl)\")'>$tools.get( $toolAction)</button>"
+                    #end
+                    #end
+                    + "</span>");
+            },
+            language: {
+                lengthMenu: '<select>'
+                                + '<option value="10">10</option>'
+                                + '<option value="20">20</option>'
+                                + '<option value="30">30</option>'
+                                + '<option value="40">40</option>'
+                                + '<option value="50">50</option>'
+                            + '</select>  条记录 ',//左上角的分页大小显示。
+                processing: "载入中",//处理页面数据的时候的显示
+                paginate: {//分页的样式文本内容。
+                    previous: "上一页",
+                    next: "下一页",
+                    first: "第一页",
+                    last: "最后一页"
+                },
+
+                zeroRecords: "没有内容",//table tbody内容为空时，tbody的内容。
+                //下面三者构成了总体的左下角的内容。
+                info: "共 _PAGES_ 页，第 _START_ - _END_ 条，总记录数 _TOTAL_ 条",//左下角的信息显示，大写的词为关键字。
+                infoEmpty: "0条记录",//筛选为空时左下角的显示。
+                infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
+            }
+        };
+
+        if (datatable_${datatable.id} == null) {
+            datatable = $("#" + "$datatable.id").DataTable( conf );
+        } else {
+            datatable_${datatable.id}.settings()[0].ajax.data = params;
+            datatable_${datatable.id}.ajax.reload();
+        }
+
+    }
+
+    function reload_${datatable.id} () {
+        if (datatable_${datatable.id} != null) {
+            datatable_${datatable.id}.ajax.reload();
+        }
+    }
+
+</script>
+
+<table id="$datatable.id" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        #foreach($thead in $tableHeads)
+        <td id="th_$thead.key">$thead.display</td>
+        #end
+    </tr>
+    </thead>
+</table>
+
+#end

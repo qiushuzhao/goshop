@@ -1,0 +1,152 @@
+## 创建 table
+#macro( createTable $tableHeads $tableData $columnExt)
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <td>序号</td>
+
+        #foreach($thead in $tableHeads)
+        <td id="$thead.key">$thead.display</td>
+        #end
+
+        #if( $columnExt.extKey)
+        <td>操作</td>
+        #end
+    </tr>
+    </thead>
+    <tbody>
+    #foreach($rs in $tableData)
+    <tr>
+        <td>$velocityCount</td>
+
+        #foreach( $thead in $tableHeads)
+        #set( $k = $thead.key)
+
+        <td>
+            #if( $thead.type == "date")
+            $dateTool.format( "yyyy-MM-dd hh:mm:ss", $rs.get($k))
+            #else
+            $rs.get($k)
+            #end
+        </td>
+        #end
+
+        #if( $columnExt.extKey)
+        <td>
+            #foreach( $extButton in $columnExt.extBtn.keySet())
+            #set( $url = $columnExt.extUrl + "/" + $extButton + "/" + $rs.get($columnExt.extKey) + ".htm")
+
+            #if( $velocityCount == 1)
+            #set( $cls = "btn btn-info btn-sm btn-icon icon-left")
+            #elseif( $velocityCount == 2)
+            #set( $cls = "btn btn-secondary btn-sm btn-icon icon-left")
+            #elseif( $velocityCount == 3)
+            #set( $cls = "btn btn-danger btn-sm btn-icon icon-left")
+            #else
+            #set( $cls = "btn btn-purple btn-sm btn-icon")
+            #end
+
+            <a href="#springUrl($url)" class="$cls">
+                $columnExt.extBtn.get( $extButton)
+            </a>
+            #end
+        </td>
+        #end
+    </tr>
+    #end
+
+    </tbody>
+</table>
+
+#end
+
+## 创建分页标签
+#macro( createTableFootLabel $footUrl $footLabel)
+<li><a href="#springUrl($footUrl)">$footLabel</a></li>
+#end
+
+
+## 创建分页
+#macro( createTableFooter, $tableFoot)
+
+#set( $curPage = $tableFoot.page)
+#set( $pageCount = $tableFoot.pageCount)
+#set( $pageNum = $tableFoot.pageNum)
+#set( $url = $tableFoot.url)
+#set( $records = $tableFoot.records)
+
+<div class="widget-foot">
+    <div class="widget-foot">
+        <span class="pagination pull-left">共 $pageCount 页, $records 条记录</span>
+        <ul class="pagination pull-right">
+            #if( $pageCount > 0)
+            #set( $firstPage = 1)
+            #else
+            #set( $firstPage = 0)
+            #end
+            #set( $prePage = $curPage - 1)
+            #set( $nextPage = $curPage + 1)
+            #if( $pageCount > 0)
+            #set( $lastPage = $pageCount)
+            #else
+            #set( $lastPage = 0)
+            #end
+
+            #set( $page1 = $curPage - 2)
+            #set( $page2 = $curPage - 1)
+            #set( $page3 = $curPage)
+            #set( $page4 = $curPage + 1)
+            #set( $page5 = $curPage + 2)
+
+            #if( $pageCount > 4 && $page3 > 1)
+            #set( $firstUrl = $url + '.htm?curPage=' + $firstPage)
+            #createTableFootLabel( $firstUrl, "首页")
+            #end
+
+            #if( $page3 > 1)
+            #set( $preUrl = $url + '.htm?curPage=' + $prePage)
+            #createTableFootLabel( $preUrl, "上一页")
+            #end
+
+            #if( $page3 > 2)
+            #set( $page1Url = $url + '.htm?curPage=' + $page1)
+            #createTableFootLabel( $page1Url, $page1)
+            #end
+
+            #if( $page3 > 1)
+            #set( $page2Url = $url + '.htm?curPage=' + $page2)
+            #createTableFootLabel( $page2Url, $page2)
+            #end
+
+            #if( $page3 > 0)
+            #set( $page3Url = $url + '.htm?curPage=' + $page3)
+            #createTableFootLabel( $page3Url, $page3)
+            #end
+
+            #if( $page3 < $pageCount)
+            #set( $page4Url = $url + '.htm?curPage=' + $page4)
+            #createTableFootLabel( $page4Url, $page4)
+            #end
+
+            #if( $page3 < $pageCount - 1)
+            #set( $page5Url = $url + '.htm?curPage=' + $page5)
+            #createTableFootLabel( $page5Url, $page5)
+            #end
+
+            #if( $page3 < $pageCount)
+            #set( $nextUrl = $url + '.htm?curPage=' + $nextPage)
+            #createTableFootLabel( $nextUrl, "下一页")
+            #end
+
+            #if( $pageCount > 4 && $page3 < $pageCount)
+            #set( $lastUrl = $url + '.htm?curPage=' + $lastPage)
+            #createTableFootLabel( $lastUrl, "尾页")
+            #end
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+#end
+

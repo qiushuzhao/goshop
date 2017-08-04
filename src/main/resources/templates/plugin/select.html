@@ -1,0 +1,5 @@
+#macro( selectOption $optionList $keyName $valName $defVal)
+	#foreach($opt in $optionList)
+	<option value="$opt.$valName">$opt.$keyName</option>
+	#end
+#end

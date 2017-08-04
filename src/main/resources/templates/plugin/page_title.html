@@ -1,0 +1,21 @@
+#macro( pageTitle $pageTitleBean)
+
+<div class="page-title">
+    <div class="title-env">
+        <h1 class="title">$pageTitleBean.title</h1>
+    </div>
+    <div class="breadcrumb-env">
+        <ol class="breadcrumb bc-1">
+            #foreach( $tagA in $pageTitleBean.ds)
+            <li> <a #if( $tagA.url) href="#springUrl(${tagA.url})" #end>
+                #if( !($tagA.cls == ""))
+                <i class="$tagA.cls"></i>
+                #end
+                $tagA.label</a>
+            </li>
+            #end
+        </ol>
+    </div>
+</div>
+
+#end

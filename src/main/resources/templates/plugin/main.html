@@ -1,0 +1,28 @@
+<div class="main-content">
+
+    #parse( "plugin/nav.html")
+
+    #set( $modelMapping = 0)
+
+    #foreach( $key in $models.keySet())
+    #if ( $key == $mapping)
+
+    #* 动态加载子模块 *#
+    #parse( $models.get($key))
+    #set( $modelMapping = 1)
+    
+    #end
+
+    #if( $modelMapping == 1)
+    #break
+    #end
+
+    #end
+
+    #if( $modelMapping == 0)
+    <div>您访问的模块不存在</div>
+    #end
+
+    #parse( "plugin/footer.html")
+
+</div>

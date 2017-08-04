@@ -1,0 +1,283 @@
+## 创建 form 面板标题栏
+#macro( formPanelTitle $title)
+<div class="panel-heading">
+    <h3 class="panel-title">$title</h3>
+    <div class="panel-options">
+        <a href="#" data-toggle="panel">
+            <span class="collapse-icon">&ndash;</span>
+            <span class="expand-icon">+</span>
+        </a>
+        <a href="#" data-toggle="remove">
+            &times;
+        </a>
+    </div>
+</div>
+#end
+
+## form 表单事件（提交/清空）
+#macro( formSubmitEvt $sfid)
+<script type="text/javascript">
+    function submit_${sfid} () {
+        $("#" + "$sfid").submit();
+    }
+</script>
+#end
+
+#macro( formResetEvt $rfid)
+<script type="text/javascript">
+    function reset_${rfid} () {
+        $("#" + "$rfid")[0].reset();
+    }
+</script>
+#end
+
+## form ajax 表单提交需要刷新的元素
+#macro( formAjaxEvt $fid $rids)
+<script type="text/javascript">
+    function ajax_${fid} () {
+        #set( $tids = $rids.split(","))
+        #foreach( $tid in $tids)
+        #set( $tmp = $velocityCount*200)
+        setTimeout( 'ajaxSubmit_${tid} (getFormJson($("#" + "$fid")))', $tmp);
+        #end
+    }
+</script>
+#end
+
+## form ajax 表单提交，不需要刷新页面，只弹出 ajax 提交服务器返回的结果
+#macro( formSelfAjaxSubmit $sasid $sasurl)
+<script type="text/javascript">
+    function ajaxSelfSubmit_${sasid} () {
+        $.ajax({
+            type: 'POST',
+            url: "$sasurl",
+            data: getFormJson($("#" + "$sasid")) ,
+            success: function(data) {
+                console.log('ajax success...' + data);
+            }
+        });
+    }
+</script>
+#end
+
+## layer 弹出框 ajax 提交
+#macro( formAjaxSubmit $asid $asurl)
+<script type="text/javascript">
+    function ajaxSubmit_${asid} () {
+        $.ajax({
+            type: 'POST',
+            url: "$asurl",
+            data: getFormJson($("#" + "$asid")) ,
+            success: function(data) {
+                console.log('ajax success...' + data);
+                var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
+                parent.reload_${rid}(); // 刷新跳转过来的元素
+                parent.layer.close(index); //执行关闭
+            }
+        });
+    }
+</script>
+#end
+
+## 生成表单按钮
+#macro( formBtn $fid $btn $furl)
+<div class="panel-body">
+    #if( $btn.submit)
+    #formSubmitEvt( $fid)
+    <div class="col-sm-2">
+        <button class="btn btn-info btn-block" onclick="submit_${fid}()">$btn.submitLabel</button>
+    </div>
+    #end
+    #if( $btn.ajax)
+
+    <div class="col-sm-2">
+    #if( $btn.ajaxRelatedId == "-1")
+        #formSelfAjaxSubmit( $fid, $furl)
+        <button class="btn btn-info btn-block" onclick="ajaxSelfSubmit_${fid}()">$btn.submitLabel</button>
+    #elseif( $fid == $btn.ajaxRelatedId)
+        ## 如果刷新的元素 id 跟 form 本身的 id 相等，那么默认成 layer 的 form 提交事件，即提交成功关闭弹出框，刷新调用的父页面元素
+        #formAjaxSubmit( $fid, $furl)
+        <button class="btn btn-info btn-block" onclick="ajaxSubmit_${fid}()">$btn.submitLabel</button>
+    #else
+        #formAjaxEvt( $fid, $btn.ajaxRelatedId)
+        <button class="btn btn-info btn-block" onclick="ajax_${fid}()">$btn.submitLabel</button>
+    #end
+    </div>
+    #end
+    #if( $btn.reset)
+    #formResetEvt( $fid)
+    <div class="col-sm-2">
+        <button class="btn btn-white btn-block" onclick="reset_${fid}()">清空</button>
+    </div>
+    #end
+</div>
+#end
+
+## 创建单列 form 表单
+#macro( formPanel $form)
+
+<div class="panel panel-default">
+    #formPanelTitle( $form.title)
+    <div class="panel-body">
+
+        #parse( "plugin/form.html")
+
+        <form id="$form.id" role="form" class="form-horizontal"
+              method="$form.method" action="#springUrl($form.action)">
+
+            #foreach( $formItem in $form.ds)
+                #form( $formItem, $form.labelRatio, $form.inputRatio, 0)
+            #end
+
+        </form>
+    </div>
+
+    #formBtn( $form.id, $form.formButton, "#springUrl($form.action)")
+</div>
+#end
+
+## 创建多列 form 表单
+#macro( complexFormPanel $complexForm)
+
+<div class="panel panel-default">
+    #formPanelTitle( $complexForm.title)
+    <div class="panel-body">
+
+        #parse( "plugin/form.html")
+        <form id="$complexForm.id" role="form" class="form-horizontal"
+              method="$complexForm.method" action="#springUrl($complexForm.action)">
+
+            #set( $cols = $complexForm.cols)
+            #set( $cls = "col-sm-" + 12 / $cols)
+
+            #foreach( $formItems in $complexForm.ds)
+            <div class="$cls">
+                #foreach( $formItem in $formItems)
+                #form( $formItem, $complexForm.labelRatio, $complexForm.inputRatio, 0)
+                #end
+            </div>
+            #end
+
+        </form>
+
+    </div>
+
+    #formBtn( $complexForm.id, $complexForm.formButton, "#springUrl($complexForm.action)")
+</div>
+#end
+
+## 创建自定义 form 表单
+#macro( customFormPanel $customForm)
+<style>
+    .form-group {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+</style>
+
+<div class="panel panel-default">
+    #formPanelTitle( $customForm.title)
+    <div class="panel-body">
+
+        #parse( "plugin/form.html")
+        <form id="$customForm.id" role="form" class="form-horizontal"
+              method="$customForm.method" action="#springUrl($customForm.action)">
+
+            #set( $cols = $customForm.cols)
+            #set( $cls = "col-sm-" + 12 / $cols)
+
+            #foreach( $formRow in $customForm.ds)
+
+            #set( $formRowCols = $formRow.cols)
+            #set( $formGroupRatio = 6)
+            #set( $formLabelRatio = 2)
+            #set( $formInputRatio = 8)
+
+            #if( $formRowCols == 1)
+            #set( $formGroupRatio = 12)
+            #set( $formLabelRatio = 1)
+            #set( $formInputRatio = 10)
+
+            #elseif( $formRowCols == 2)
+            #set( $formGroupRatio = 6)
+            #set( $formLabelRatio = 2)
+            #set( $formInputRatio = 8)
+
+            #elseif( $formRowCols == 3)
+            #set( $formGroupRatio = 4)
+            #set( $formLabelRatio = 3)
+            #set( $formInputRatio = 8)
+
+            #elseif( $formRowCols == 4)
+            #set( $formGroupRatio = 3)
+            #set( $formLabelRatio = 4)
+            #set( $formInputRatio = 8)
+
+            #end
+            <div class="row">
+                #foreach( $formItem in $formRow.formInputs)
+                #form( $formItem, $formLabelRatio, $formInputRatio, $formGroupRatio)
+                #end
+            </div>
+
+            #end
+
+        </form>
+
+    </div>
+
+    #formBtn( $customForm.id, $customForm.formButton, "#springUrl($customForm.action)")
+</div>
+#end
+
+## 创建简单 table 面板
+#macro( tablePanel $table)
+<div class="panel panel-default">
+    #formPanelTitle( $table.title)
+
+    #parse( "plugin/table.html")
+
+    <div class="panel-body">
+
+        #set( $th = $table.tableHead)
+        #set( $td = $table.rows)
+        #set( $ce = $table.columnExt)
+        #createTable( $th, $td, $ce)
+
+        #set( $tableFoot = $table.tableFoot)
+        #createTableFooter( $tableFoot)
+
+    </div>
+</div>
+#end
+
+## 创建 datatable 面板
+#macro( datatablePanel $datatable)
+
+<div class="panel panel-default">
+    #formPanelTitle( $datatable.title)
+
+    #parse( "plugin/datatable.html")
+
+    <div class="panel-body">
+
+        #createDataTable( $datatable)
+
+    </div>
+</div>
+
+#end
+
+#macro( pagePanel $pageChildPanelBean)
+    #if( $pageChildPanelBean.type == "form")
+        #formPanel( $pageChildPanelBean)
+    #elseif( $pageChildPanelBean.type == "complex_form")
+        #complexFormPanel( $pageChildPanelBean)
+    #elseif( $pageChildPanelBean.type == "custom_form")
+        #customFormPanel( $pageChildPanelBean)
+    #elseif( $pageChildPanelBean.type == "table")
+        #tablePanel( $pageChildPanelBean)
+    #elseif( $pageChildPanelBean.type == "datatable")
+        #datatablePanel( $pageChildPanelBean)
+    #end
+#end

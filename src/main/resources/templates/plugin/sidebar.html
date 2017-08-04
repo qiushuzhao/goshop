@@ -1,0 +1,75 @@
+<div class="sidebar-menu toggle-others fixed">
+
+    <div class="sidebar-menu-inner">
+
+        <header class="logo-env" style="background:#FF4649">
+
+            <!-- logo -->
+            <div class="logo">
+                <a href="dashboard-1.html" class="logo-expanded">
+                    <img src="#springUrl('/assets/images/logo@2x.png')" width="120" alt="" />
+                </a>
+
+                <a href="dashboard-1.html" class="logo-collapsed">
+                    <img src="#springUrl('/assets/images/logo-collapsed@2x.png')" width="40" alt="" />
+                </a>
+            </div>
+
+            <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+            <div class="mobile-menu-toggle visible-xs">
+                <a href="#" data-toggle="user-info-menu">
+                    <i class="fa-bell-o"></i>
+                    <span class="badge badge-success">7</span>
+                </a>
+
+                <a href="#" data-toggle="mobile-menu">
+                    <i class="fa-bars"></i>
+                </a>
+            </div>
+
+            <!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
+            <div class="settings-icon">
+                <a href="#" data-toggle="settings-pane" data-animate="true">
+                    <i class="linecons-cog"></i>
+                </a>
+            </div>
+
+        </header>
+
+        <ul id="main-menu" class="main-menu">
+
+            #foreach( $menu in $sidebar.sideMenuBeans)
+            #set( $open = 0)
+            #if( $menu.hasChild)
+                #foreach( $menuItem in $menu.sideBarChilds)
+                    #if( $mapping == $menuItem.id)
+                        #set( $open = 1)
+                        #break
+                    #end
+                #end
+            #end
+
+            <li #if( $open == 1) class="active opened active" #end>
+                <a href="#springUrl($menu.url)">
+                    <i class="$menu.style"></i>
+                    <span class="title">$menu.display</span>
+                </a>
+                #if( $menu.hasChild)
+                <ul>
+                    #foreach( $menuItem in $menu.sideBarChilds)
+                    <li #if( $mapping == $menuItem.id) class="active" #end>
+                        <a href="#springUrl($menuItem.url)">
+                            <span class="title">$menuItem.display</span>
+                        </a>
+                    </li>
+                    #end
+                </ul>
+                #end
+            </li>
+            #end
+
+        </ul>
+
+    </div>
+
+</div>

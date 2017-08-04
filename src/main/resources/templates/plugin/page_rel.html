@@ -1,0 +1,99 @@
+## 创建分页标签
+#macro( createTableFootLabelRel $footUrl $fid $rel $footLabel)
+
+#if($tableFoot.page==$footLabel)
+<li class="active"><a onclick="toPageRel('#springUrl($footUrl)','$fid','$rel');" href="#">$footLabel</a></li>
+#else
+<li><a onclick="toPageRel('#springUrl($footUrl)','$fid','$rel');" href="#">$footLabel</a></li>
+#end
+#end
+
+
+## 创建分页
+#macro( createTableFooterRel, $tableFoot, $fid,$rel)
+
+#set( $curPage = $tableFoot.page)
+#set( $pageCount = $tableFoot.pageCount)
+#set( $pageNum = $tableFoot.pageNum)
+#set( $url = $tableFoot.url)
+#set( $records = $tableFoot.records)
+
+    <div class="widget-foot">
+        <span class="pagination pull-left">共 $pageCount 页, $records 条记录</span>
+        <ul class="pagination pull-right">
+            #if( $pageCount > 0)
+            #set( $firstPage = 1)
+            #else
+            #set( $firstPage = 0)
+            #end
+            #set( $prePage = $curPage - 1)
+            #set( $nextPage = $curPage + 1)
+            #if( $pageCount > 0)
+            #set( $lastPage = $pageCount)
+            #else
+            #set( $lastPage = 0)
+            #end
+
+            #set( $page1 = $curPage - 2)
+            #set( $page2 = $curPage - 1)
+            #set( $page3 = $curPage)
+            #set( $page4 = $curPage + 1)
+            #set( $page5 = $curPage + 2)
+
+            #if( $pageCount > 2 && $page3 > 1)
+            #set( $firstUrl = $url + '.htm?curPage=' + $firstPage)
+            #createTableFootLabelRel( $firstUrl, $fid,$rel, "首页")
+            #end
+
+            #if( $page3 > 1)
+            #set( $preUrl = $url + '.htm?curPage=' + $prePage)
+            #createTableFootLabelRel( $preUrl, $fid, $rel, "上一页")
+            #end
+
+            #if( $page3 > 2)
+            #set( $page1Url = $url + '.htm?curPage=' + $page1)
+            #createTableFootLabelRel( $page1Url, $fid, $rel, $page1)
+            #end
+
+            #if( $page3 > 1)
+            #set( $page2Url = $url + '.htm?curPage=' + $page2)
+            #createTableFootLabelRel( $page2Url, $fid, $rel, $page2)
+            #end
+
+            #if( $page3 > 0)
+            #set( $page3Url = $url + '.htm?curPage=' + $page3)
+            #createTableFootLabelRel( $page3Url, $fid, $rel, $page3)
+            #end
+
+            #if( $page3 < $pageCount)
+            #set( $page4Url = $url + '.htm?curPage=' + $page4)
+            #createTableFootLabelRel( $page4Url, $fid, $rel, $page4)
+            #end
+
+            #if( $page3 < $pageCount - 1)
+            #set( $page5Url = $url + '.htm?curPage=' + $page5)
+            #createTableFootLabelRel( $page5Url, $fid, $rel, $page5)
+            #end
+
+            #if( $page3 < $pageCount)
+            #set( $nextUrl = $url + '.htm?curPage=' + $nextPage)
+            #createTableFootLabelRel( $nextUrl, $fid, $rel, "下一页")
+            #end
+
+            #if( $pageCount > 2 && $page3 < $pageCount)
+            #set( $lastUrl = $url + '.htm?curPage=' + $lastPage)
+            #createTableFootLabelRel( $lastUrl, $fid, $rel, "尾页")
+            #end
+
+            #set( $pageGo = $url + '.htm?curPage=')
+            <li>&nbsp;</li>
+            <li id="go_page_li">
+              <input name="go_page_num" id="go_page_num" maxlength="5" value="$tableFoot.page"
+                data-pageCurrent="$tableFoot.page" data-pageCount="$tableFoot.pageCount" data-url="#springUrl($pageGo)" data-fid="$fid" data-rel="$rel"
+                isInteger="true" onkeypress="doPageGoKeyRel(event, '$rel');" style="width: 50px;float:left;border:1px solid #ddd;text-align: center;box-shadow: none;line-height: 29px;background: #fff;" />
+              <a onclick="doPageGoClickRel('$rel');" href="#" style="color: #06c1ae;">GO</a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+#end
