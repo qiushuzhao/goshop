@@ -34,7 +34,7 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 		// log记录异常
 		LOGGER.error(e.getMessage(), e);
 		// 非控制器请求照成的异常
-		if (!(handler instanceof HandlerMethod)) {
+		if (!(handler instanceof HandlerMethod)) { 
 			return new ModelAndView("error/500");
 		}
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
