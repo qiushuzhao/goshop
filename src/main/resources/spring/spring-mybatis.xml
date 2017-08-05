@@ -10,6 +10,14 @@
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+	<!-- 	java环境测试 -->
+ 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config/*.properties</value>
+            </list>
+        </property>
+    </bean>
     <!-- dataSource -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${db.master.url}" />

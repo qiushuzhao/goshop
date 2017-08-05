@@ -15,7 +15,7 @@
 	<!-- aspectj aop启用CGliB代理 -->
 	<aop:aspectj-autoproxy expose-proxy="true"
 		proxy-target-class="true" />
-	<context:component-scan base-package="com.qiu.controller" />
+	<context:component-scan base-package="com.qiu.controller,com.qiu.commons" />
 	<!-- velocity解析器,替换掉原来的jsp -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">

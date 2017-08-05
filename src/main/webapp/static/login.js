@@ -1,15 +1,8 @@
-// 判断时候在Iframe框架内,在则刷新父页面
-if (self != top) {
-    parent.location.reload(true);
-    if (!!(window.attachEvent && !window.opera)) {
-        document.execCommand("stop");
-    } else {
-        window.stop();
-    }
-}
-
-$(function () {
-    // 得到焦点
+/*
+ * 获得焦点蒙眼睛
+ */
+$(function(){
+	 // 得到焦点
     $("#password").focus(function () {
         $("#left_hand").animate({
             left: "150",
@@ -39,47 +32,34 @@ $(function () {
         $("#right_hand").attr("class", "initial_right_hand");
         $("#right_hand").attr("style", "right:-112px;top:-12px");
     });
-    // 验证码
-    $("#captcha").click(function() {
-        var $this = $(this);
-        var url = $this.data("src") + new Date().getTime();
-        $this.attr("src", url);
-    });
-    // 登录
-    $('#loginform').form({
-        url: basePath + '/login',
-        onSubmit : function() {
-            progressLoad();
-            var isValid = $(this).form('validate');
-            if(!isValid){
-                progressClose();
-            }
-            return isValid;
+})
+
+/**
+ * 换验证码
+ */
+$(function(){
+	$("#imgid").click(function(){
+		$(this).attr("src","code?="+new Date())
+	});
+});
+
+/**
+ * 登录
+ */
+function submitForm() {
+	$.ajax({
+        cache: true,
+        type: "POST",
+        url:"shirologin",
+        data:$('#loginform').serialize(),// 你的formid
+        async: false,
+        error: function(request) {
+            alert("Connection error");
         },
-        success:function(result){
-            progressClose();
-            result = $.parseJSON(result);
-            if (result.success) {
-                window.location.href = basePath + '/index';
-            }else{
-                // 刷新验证码
-                $("#captcha")[0].click();
-                showMsg(result.msg);
-            }
+        success: function(data) {
+            $("#commonLayout_appcreshi").parent().html(data);
         }
     });
-});
-function submitForm(){
-    $('#loginform').submit();
 }
-function clearForm(){
-    $('#loginform').form('clear');
-}
-//回车登录
-function enterlogin(){
-    if (event.keyCode == 13){
-        event.returnValue=false;
-        event.cancel = true;
-        $('#loginform').submit();
-    }
-}
+
+
