@@ -47,17 +47,23 @@ $(function(){
  * 登录
  */
 function submitForm() {
+	debugger
 	$.ajax({
         cache: true,
         type: "POST",
         url:"shirologin",
         data:$('#loginform').serialize(),// 你的formid
         async: false,
+        success: function(data) {
+        	var obj = eval('(' + data + ')');
+        	if(obj.success){
+        		 window.location.href = '/goshop/index';
+        	}else{
+            		layer.msg(obj.msg);
+        	}
+         },
         error: function(request) {
             alert("Connection error");
-        },
-        success: function(data) {
-            $("#commonLayout_appcreshi").parent().html(data);
         }
     });
 }

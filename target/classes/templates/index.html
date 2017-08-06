@@ -3,9 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+#parse("plugin/base.html")
 </head>
 <body>
 helle,#set($name="邱先生")
 $name
+<button id="qui" onclick="quit()">退出</button>
 </body>
+<script type="text/javascript">
+	function quit(){
+		$.ajax({
+	        cache: true,
+	        type: "POST",
+	        url:"logout",
+	        async: false,
+	        success: function(data) {
+	        	var obj = eval('(' + data + ')');
+	        	if(obj.success){
+	        		 window.location.href = '/goshop/login';
+	        	}else{
+	            		layer.msg(obj.msg);
+	        	}
+	         },
+	        error: function(request) {
+	            alert("Connection error");
+	        }
+	    });
+	}
+</script>
 </html>
