@@ -14,4 +14,32 @@
       WHERE
           r.id = #{id}
   </select>
+  
+   <select id="selectResourceListByRoleIdList" resultType="com.qiu.entity.Resouce"
+            parameterType="java.lang.Integer">
+        SELECT
+            DISTINCT s.id AS id,
+            s.NAME AS 'name',
+            s.url AS url,
+            s.description AS description,
+            s.icon AS icon,
+            s.pid AS pid,
+            s.seq AS seq,
+            s.STATUS AS 'status',
+            s.open_mode AS openMode,
+            s.opened as opened,
+            s.resource_type AS resourceType,
+            s.create_time AS createTime
+        FROM
+            role r
+        LEFT JOIN role_resource e ON r.id = e.role_id
+        LEFT JOIN resource s ON e.resource_id = s.id
+        WHERE
+            r.id in  
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+                #{item}
+            </foreach>
+        AND s.resource_type = 0
+        ORDER BY seq
+    </select>
 </mapper>

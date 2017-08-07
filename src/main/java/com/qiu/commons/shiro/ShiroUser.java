@@ -17,6 +17,18 @@ public class ShiroUser implements Serializable{
 	
 	private Set<String> roles;
 	
+	
+	
+	public ShiroUser() {
+		super();
+	}
+	public ShiroUser(int id, String loginName, String name, Set<String> urlset) {
+		super();
+		this.id = id;
+		this.loginName = loginName;
+		this.name = name;
+		this.urlset = urlset;
+	}
 	public int getId() {
 		return id;
 	}

@@ -13,6 +13,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.qiu.entity.User;
@@ -27,15 +28,6 @@ public class ShiroDbRealm extends AuthorizingRealm{
 	private RoleService roleService;
 	
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.setRoles(shiroUser.getUrlset());
-		info.addStringPermissions(shiroUser.getUrlset());
-		return info;
-	}
-	
-	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken u=(UsernamePasswordToken)token;
 		User user=new User();
@@ -48,11 +40,12 @@ public class ShiroDbRealm extends AuthorizingRealm{
 		if(user2.getStatus().equals("1")){
 			return null;
 		}
-		ShiroUser shiroUser=new ShiroUser();
 		Map<String, Set<String>> resources = roleService.selectResourceMapByUserId(user2.getId());
-		shiroUser.setRoles(resources.get("roles"));
-		shiroUser.setUrlset(resources.get("url"));
-		 AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user2.getLoginName(), user2.getPassword(), this.getName());
+		Set<String> urls = resources.get("urls");
+		Set<String> roles = resources.get("roles");
+		ShiroUser shiroUser=new ShiroUser(user2.getId(),user2.getLoginName(),user2.getName(),urls);		
+		shiroUser.setRoles(roles);
+        AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user2.getLoginName(), user2.getPassword(), this.getName());
 		return authcInfo;
 	}
 	
@@ -62,6 +55,33 @@ public class ShiroDbRealm extends AuthorizingRealm{
 	@Override
 	public void onLogout(PrincipalCollection principals) {
 		super.onLogout(principals);
+	}
+	
+	/**
+     * 清除用户缓存
+     * @param shiroUser
+     */
+    public void removeUserCache(ShiroUser shiroUser){
+        removeUserCache(shiroUser.getLoginName());
+    }
+
+    /**
+     * 清除用户缓存
+     * @param loginName
+     */
+    public void removeUserCache(String loginName){
+        SimplePrincipalCollection principals = new SimplePrincipalCollection();
+        principals.add(loginName, super.getName());
+        super.clearCachedAuthenticationInfo(principals);
+    }
+
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		info.setRoles(shiroUser.getUrlset());
+		info.addStringPermissions(shiroUser.getUrlset());
+		return info;
 	}
 
 }

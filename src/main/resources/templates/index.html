@@ -4,31 +4,59 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 #parse("plugin/base.html")
+<script type="text/javascript" src="static/index.js"></script>
 </head>
 <body>
-helle,#set($name="邱先生")
-$name
-<button id="qui" onclick="quit()">退出</button>
+<body>
+    <div id="loading" style="position: fixed;top: -50%;left: -50%;width: 200%;height: 200%;background: #fff;z-index: 100;overflow: hidden;">
+        <img src="" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;"/>
+    </div>
+    <div id="index_layout">
+        <div data-options="region:'north',border:false" style="overflow: hidden;">
+            <div>
+                <span style="float: right; padding-right: 20px; margin-top: 15px; color: #333">
+                    <i class="fi-torso"></i>
+                    <b><shiro:principal></shiro:principal></b>&nbsp;&nbsp; 
+                    <a href="javascript:void(0)" onclick="logout()" class="easyui-linkbutton" plain="true" icon="fi-x">安全退出</a>
+                </span>
+                <span class="header"></span>
+            </div>
+        </div>
+        <div data-options="region:'west',split:true" title="菜单" style="width: 160px; overflow: hidden;overflow-y:auto; padding:0px">
+            <div class="well well-small" style="padding: 5px 5px 5px 5px;">
+                <ul id="layout_west_tree" class="ztree"></ul>
+            </div>
+        </div>
+        <div data-options="region:'center'" style="overflow: hidden;">
+            <div id="index_tabs" style="overflow: hidden;">
+                <div title="首页" data-options="iconCls:'fi-home',border:false" style="overflow: hidden;">
+                    <script src='https://git.oschina.net/wangzhixuan/spring-shiro-training/widget_preview'></script>
+                    <style>
+                        .pro_name a{color: #4183c4;}
+                        .osc_git_title{background-color: #d8e5f1;}
+                        .osc_git_box{background-color: #fafafa;}
+                        .osc_git_box{border-color: #ddd;}
+                        .osc_git_info{color: #666;}
+                        .osc_git_main a{color: #4183c4;}
+                    </style>
+                </div>
+            </div>
+        </div>
+        <div data-options="region:'south',border:false" style="height: 30px;line-height:30px; overflow: hidden;text-align: center;background-color: #eee" >Copyright © 2015 power by <a href="http://www.dreamlu.net/" target="_blank">如梦技术</a></div>
+    </div>
+    <div id="tabsMenu">
+        <div data-options="iconCls:'fi-loop'" type="refresh" style="font-size: 12px;">刷新</div>
+        <div class="menu-sep"></div>
+        <div data-options="iconCls:'fi-x'" type="close" style="font-size: 12px;">关闭</div>
+        <div data-options="iconCls:''" type="closeOther">关闭其他</div>
+        <div data-options="iconCls:''" type="closeAll">关闭所有</div>
+    </div>
+    
+    <style>
+        /*ie6提示*/
+        #ie6-warning{width:100%;position:absolute;top:0;left:0;background:#fae692;padding:5px 0;font-size:12px}
+        #ie6-warning p{width:960px;margin:0 auto;}
+    </style>
 </body>
-<script type="text/javascript">
-	function quit(){
-		$.ajax({
-	        cache: true,
-	        type: "POST",
-	        url:"logout",
-	        async: false,
-	        success: function(data) {
-	        	var obj = eval('(' + data + ')');
-	        	if(obj.success){
-	        		 window.location.href = '/goshop/login';
-	        	}else{
-	            		layer.msg(obj.msg);
-	        	}
-	         },
-	        error: function(request) {
-	            alert("Connection error");
-	        }
-	    });
-	}
-</script>
+</body>
 </html>

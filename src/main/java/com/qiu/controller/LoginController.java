@@ -1,6 +1,5 @@
 package com.qiu.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qiu.commons.result.Result;
 import com.qiu.commons.shiro.DreamCaptcha;
+import com.qiu.commons.shiro.ShiroUser;
 import com.qiu.commons.utils.StringUtils;
 import com.qiu.commons.utils.WebUtils;
 import com.qiu.dao.UserRoleInfoDao;
@@ -118,6 +117,13 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return renderSuccess();
+    }
+    /**
+     * 获取当前登录用户对象
+     * @return {ShiroUser}
+     */
+    public ShiroUser getShiroUser() {
+        return (ShiroUser) SecurityUtils.getSubject().getPrincipal();
     }
 
 }
