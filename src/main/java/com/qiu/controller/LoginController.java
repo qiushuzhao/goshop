@@ -10,6 +10,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.qiu.commons.base.BaseController;
 import com.qiu.commons.result.Result;
 import com.qiu.commons.shiro.DreamCaptcha;
 import com.qiu.commons.shiro.ShiroUser;
@@ -35,8 +37,9 @@ import com.qiu.entity.UserRole;
  *
  */
 @Controller
-public class LoginController {
-
+public class LoginController extends BaseController{
+	@Autowired
+    private DreamCaptcha dreamCaptcha;
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
@@ -50,9 +53,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/shirologin")
 	@ResponseBody
-	public Object shirologin(User user, HttpServletRequest request) {
-		String cookieValue = WebUtils.getCookieValue(request, "DEFAULT_COOKIE_NAME");
-		System.out.println(cookieValue);
+	public Object shirologin(User user, HttpServletRequest request,HttpServletResponse response,String captcha) {
 		if (StringUtils.isBlank(user.getLoginName())) {
 			throw new RuntimeException("登录名不能为空");
 		}
@@ -62,6 +63,9 @@ public class LoginController {
 		if (StringUtils.isBlank(request.getParameter("captcha"))) {
 			throw new RuntimeException("验证码不能为空");
 		}
+		 if (!dreamCaptcha.validate(request, response, captcha)) {
+	            throw new RuntimeException("验证码错误");
+	        }
 		Subject suser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(), user.getPassword());
 		//设置记住密码

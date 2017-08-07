@@ -39,7 +39,7 @@ $(function(){
  */
 $(function(){
 	$("#imgid").click(function(){
-		$(this).attr("src","code?="+new Date())
+		$(this).attr("src","captcha.jpg?="+new Date())
 	});
 });
 
@@ -59,7 +59,7 @@ function submitForm() {
         	if(obj.success){
         		 window.location.href = '/goshop/index';
         	}else{
-            		layer.msg(obj.msg);
+            		layer.msg(obj.msg,{icon: 2});
         	}
          },
         error: function(request) {

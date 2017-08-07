@@ -24,6 +24,7 @@
 		<commons-io.version>2.5</commons-io.version>
 		<hibernate-validator.version>5.3.5.Final</hibernate-validator.version>
 		<poi.version>3.16</poi.version>
+		<aspectj.version>1.8.10</aspectj.version>
 	</properties>
 
 
@@ -35,6 +36,16 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		 <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
