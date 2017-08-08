@@ -59,6 +59,7 @@ function submitForm() {
         	if(obj.success){
         		 window.location.href = '/goshop/index';
         	}else{
+            		$("#imgid").attr("src","captcha.jpg?="+new Date())
             		layer.msg(obj.msg,{icon: 2});
         	}
          },

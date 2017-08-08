@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.qiu.entity.User;
 import com.qiu.service.RoleService;
 import com.qiu.service.UserService;
-
 public class ShiroDbRealm extends AuthorizingRealm {
 
 	@Autowired
@@ -52,9 +51,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		Set<String> roles = resources.get("roles");
 		ShiroUser shiroUser = new ShiroUser(user2.getId(), user2.getLoginName(), user2.getName(), urls);
 		shiroUser.setRoles(roles);
-		AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user2.getLoginName(), user2.getPassword(),
-				this.getName());
-		return authcInfo;
+		return new SimpleAuthenticationInfo(shiroUser, user2.getPassword().toCharArray(),ShiroByteSource.of(user2.getSalt()), getName());
 	}
 
 	/**
