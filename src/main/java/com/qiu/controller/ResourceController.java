@@ -28,7 +28,7 @@ public class ResourceController extends BaseController {
      *
      * @return
      */
-    @GetMapping("/tree")
+    @PostMapping("/tree")
     @ResponseBody
     public Object tree() {
         ShiroUser shiroUser = getShiroUser();

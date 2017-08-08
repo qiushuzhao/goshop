@@ -14,11 +14,11 @@ import com.qiu.commons.shiro.ShiroUser;
 import com.qiu.dao.ResourceInfoDao;
 import com.qiu.dao.RoleInfoDao;
 import com.qiu.dao.UserRoleInfoDao;
-import com.qiu.entity.Resouce;
+import com.qiu.entity.Resource;
 import com.qiu.service.ResourceService;
 
 @Service
-public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resouce> implements ResourceService{
+public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resource> implements ResourceService{
 
 	@Autowired
 	private ResourceInfoDao resourceInfoDao;
@@ -39,8 +39,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resouce> i
 		}
 		//超级管理员
 		if(roles.contains("admin")){
-			List<Resouce> resources = this.selectByType(0);
-			for (Resouce resource : resources) {
+			List<Resource> resources = this.selectByType(0);
+			for (Resource resource : resources) {
 				Tree tree = new Tree();
                 tree.setId(resource.getId());
                 tree.setPid(resource.getPid());
@@ -57,11 +57,11 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resouce> i
 	        if (roleIdList == null) {
 	            return trees;
 	        }
-	        List<Resouce> resourceLists = roleInfoDao.selectResourceListByRoleIdList(roleIdList);
+	        List<Resource> resourceLists = roleInfoDao.selectResourceListByRoleIdList(roleIdList);
 	        if (resourceLists == null) {
 	            return trees;
 	        }
-	        for (Resouce resource : resourceLists) {
+	        for (Resource resource : resourceLists) {
 	            Tree tree = new Tree();
 	            tree.setId(resource.getId());
 	            tree.setPid(resource.getPid());
@@ -75,9 +75,9 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resouce> i
 		return trees;
 	}
 	
-	 public List<Resouce> selectByType(Integer type) {
-	        EntityWrapper<Resouce> wrapper = new EntityWrapper<Resouce>();
-	        Resouce resource = new Resouce();
+	 public List<Resource> selectByType(Integer type) {
+	        EntityWrapper<Resource> wrapper = new EntityWrapper<Resource>();
+	        Resource resource = new Resource();
 	        wrapper.setEntity(resource);
 	        wrapper.addFilter("resource_type = {0}", type);
 	        wrapper.orderBy("seq");

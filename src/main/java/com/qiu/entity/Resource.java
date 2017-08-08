@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Resouce {
+public class Resource {
 	/** 主键 */
 	private Long id;
 

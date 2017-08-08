@@ -15,7 +15,7 @@
           r.id = #{id}
   </select>
   
-   <select id="selectResourceListByRoleIdList" resultType="com.qiu.entity.Resouce"
+   <select id="selectResourceListByRoleIdList" resultType="com.qiu.entity.Resource"
             parameterType="java.lang.Integer">
         SELECT
             DISTINCT s.id AS id,

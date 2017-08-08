@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.qiu.entity.Resouce;
+import com.qiu.entity.Resource;
 import com.qiu.entity.Role;
 
 public interface RoleInfoDao extends BaseMapper<Role> {
@@ -18,5 +18,5 @@ public interface RoleInfoDao extends BaseMapper<Role> {
 	 */
 	List<Map<Integer,String>> selectResourceListByRoleId(Integer id);
 	
-	List<Resouce> selectResourceListByRoleIdList(@Param("list") List<Integer> list);
+	List<Resource> selectResourceListByRoleIdList(@Param("list") List<Integer> list);
 }
