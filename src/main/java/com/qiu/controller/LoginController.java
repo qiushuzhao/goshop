@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fz.fanya.mw.common.util.DateUtils;
 import com.qiu.commons.base.BaseController;
 import com.qiu.commons.result.Result;
 import com.qiu.commons.result.Tree;
 import com.qiu.commons.shiro.DreamCaptcha;
 import com.qiu.commons.shiro.ShiroUser;
+import com.qiu.commons.utils.DateUtils;
 import com.qiu.commons.utils.StringUtils;
 import com.qiu.commons.utils.WebUtils;
 import com.qiu.dao.UserRoleInfoDao;

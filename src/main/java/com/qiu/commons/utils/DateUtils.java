@@ -14,7 +14,7 @@
  *
  *
  */
-package com.fz.fanya.mw.common.util;
+package com.qiu.commons.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,8 +25,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
-
-import com.qiu.commons.utils.StringTools;
 
 
 /**
