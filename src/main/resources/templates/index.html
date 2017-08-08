@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>Bootstrap响应式后台管理系统模版Mac - JS代码网</title> 
+  <meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文,后台管理系统模版,后台模版下载,后台管理系统,后台管理模版" />
+  <meta name="description" content="JS代码网提供Bootstrap模版,后台管理系统模版,后台管理界面,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="">
+  <!-- Stylesheets -->
+  <link href="static/style/bootstrap.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="static/style/font-awesome.css"> 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="static/style/jquery-ui.css"> 
+  <!-- Calendar -->
+  <link rel="stylesheet" href="static/style/fullcalendar.css">
+  <!-- prettyPhoto -->
+  <link rel="stylesheet" href="static/style/prettyPhoto.css">  
+  <!-- Star rating -->
+  <link rel="stylesheet" href="static/style/rateit.css">
+  <!-- Date picker -->
+  <link rel="stylesheet" href="static/style/bootstrap-datetimepicker.min.css">
+  <!-- CLEditor -->
+  <link rel="stylesheet" href="static/style/jquery.cleditor.css"> 
+  <!-- Uniform -->
+  <link rel="stylesheet" href="static/style/uniform.default.css"> 
+  <!-- Bootstrap toggle -->
+  <link rel="stylesheet" href="static/style/bootstrap-switch.css">
+  <!-- Main stylesheet -->
+  <link href="static/style/style.css" rel="stylesheet">
+  <!-- Widgets stylesheet -->
+  <link href="static/style/widgets.css" rel="stylesheet">   
+  
+  <!-- HTML5 Support for IE -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shim.js"></script>
+  <![endif]-->
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="static/img/favicon/favicon.png">
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+  
+    <div class="conjtainer">
+      <!-- Menu button for smallar screens -->
+      <div class="navbar-header">
+		  <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			<span>菜单</span>
+		  </button>
+		  <!-- Site name for smallar screens -->
+		  <a href="index.html" class="navbar-brand hidden-lg">首页</a>
+		</div>
+      
+      
+
+      <!-- Navigation starts -->
+      <nav class="collapse navbar-collapse bs-navbar-collapse"  role="navigation">         
+
+        <ul class="nav navbar-nav">  
+          <!-- Sync to server link -->
+          <li class="dropdown dropdown-big">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger"><i class="icon-link"></i></span> goshop后台管理系统</a>
+          </li>
+        </ul>
+        <!-- Links -->
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown pull-right">            
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              <i class="icon-user"></i> 管理员 <b class="caret"></b>              
+            </a>
+            
+            <!-- Dropdown menu -->
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="icon-user"></i> 资料</a></li>
+              <li><a href="#"><i class="icon-cogs"></i> 设置</a></li>
+              <li><a href="login.html"><i class="icon-off"></i> 退出</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+
+<!-- Header ends -->
+
+<!-- Main content starts -->
+
+<div class="content">
+
+  	<!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-dropdown"><a href="#">导航</a></div>
+
+        <ul id="nav">
+          <li><a href="index.html" class="open"><i class="icon-home"></i> 首页</a>
+          </li>
+          <li class="has_sub"><a href=""><i class="icon-user"></i> 用户管理 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+            <ul>
+              <li style="display: block;"><a href="javascript:goTo('1','https://www.baidu.com/')">用户管理</a></li>
+            </ul>
+          </li>  
+           <li class="has_sub"><a href=""><i class="icon-list-alt"></i> 角色管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+            <ul>
+              <li><a href="javascript:goTo('2','https://www.jd.com/');">角色管理</a></li>
+            </ul>
+          </li>  
+        </ul>
+    </div>
+
+    <!-- Sidebar ends -->
+
+  	  	<!-- Main bar -->
+  	<div class="mainbar">
+      
+	    <!-- Page heading -->
+	    <div class="page-head">
+	      <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
+
+        <!-- Breadcrumb -->
+        <div class="bread-crumb pull-right">
+          <a href="index.html"><i id="fpag" class="icon-home"></i> 首页</a> 
+          <!-- Divider -->
+          <span class="divider">/</span> 
+          <a href="#" class="bread-current">控制台</a>
+        </div>
+        <div class="clearfix"></div>
+	    </div>
+	    <!-- Page heading ends -->
+	    <!-- Matter -->
+	    <div class="matter">
+        	<div class="container">
+        		<iframe id="mainFrame" name="mainFrame" frameborder="0"
+					style="margin: 0 auto; width: 100%; height: 100%;"
+					src="https://www.jd.com/">
+				</iframe>
+        	</div>
+        </div>
+        </div>
+		  </div>
+		<!-- Matter ends -->
+    </div>
+   <!-- Mainbar ends -->
+   <div class="clearfix"></div>
+</div>
+<!-- Content ends -->
+<!-- Footer starts -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; 2012 | <a href="#">goshop</a> </p>
+      </div>
+    </div>
+  </div>
+</footer> 	
+<!-- Footer ends -->
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
+<!-- JS -->
+<script src="static/js/jquery.js"></script> <!-- jQuery -->
+<script src="static/js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="static/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+<script src="static/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="static/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="static/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+<!-- jQuery Flot -->
+<script src="static/js/excanvas.min.js"></script>
+<script src="static/js/jquery.flot.js"></script>
+<script src="static/js/jquery.flot.resize.js"></script>
+<script src="static/js/jquery.flot.pie.js"></script>
+<script src="static/js/jquery.flot.stack.js"></script>
+<!-- jQuery Notification - Noty -->
+<script src="static/js/jquery.noty.js"></script> <!-- jQuery Notify -->
+<script src="static/js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="static/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="static/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="static/js/layouts/top.js"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+<script src="static/js/sparklines.js"></script> <!-- Sparklines -->
+<script src="static/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="static/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="static/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
+<script src="static/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="static/js/filter.js"></script> <!-- Filter for support page -->
+<script src="static/js/custom.js"></script> <!-- Custom codes -->
+<script src="static/js/charts.js"></script> <!-- Charts & Graphs -->
+<script type="text/javascript">
+function cmainFrame() {
+	var hmain = document.getElementById("mainFrame");
+	var bheight = document.documentElement.clientHeight;
+	hmain.style.width = '100%';
+	hmain.style.height = (bheight - 85) + 'px';
+}
+cmainFrame();
+window.onresize = function() {
+	cmainFrame();
+};
+// 获取菜单
+function goTo(menuId, url,ss) {
+	var hmain = document.getElementById("mainFrame");
+	hmain.src = url ;
+}
+</script>
