@@ -22,7 +22,6 @@ $(document).ready(function(){
       }   
 
       if(!$(this).hasClass("subdrop")) {
-
         // hide any open menus and remove all other classes
         $("#nav li ul").slideUp(350);
         $("#nav li a").removeClass("subdrop");
@@ -33,7 +32,6 @@ $(document).ready(function(){
       }
       
       else if($(this).hasClass("subdrop")) {
-    	 
         $(this).removeClass("subdrop");
         $(this).next("ul").slideUp(350);
       } 
@@ -63,15 +61,15 @@ $(document).ready(function(){
 
 });
 
-/* Widget close 
+/* Widget close */
 
 $('.wclose').click(function(e){
   e.preventDefault();
   var $wbox = $(this).parent().parent().parent();
   $wbox.hide(100);
-});*/
+});
 
-/* Widget minimize 
+/* Widget minimize */
 
   $('.wminimize').click(function(e){
     e.preventDefault();
@@ -87,9 +85,9 @@ $('.wclose').click(function(e){
       $(this).children('i').addClass('icon-chevron-up');
     }            
     $wcontent.toggle(500);
-  }); */
+  }); 
 
-/* Calendar
+/* Calendar */
 
   $(document).ready(function() {
   
@@ -153,7 +151,7 @@ $('.wclose').click(function(e){
       ]
     });
     
-  }); */
+  });
 
 /* Progressbar animation */
 
@@ -236,7 +234,7 @@ $(document).ready(function(){
   });
 });
 
-/* Scroll to Top 
+/* Scroll to Top */
 
 
   $(".totop").hide();
@@ -258,9 +256,9 @@ $(document).ready(function(){
       $('body,html').animate({scrollTop: 0}, 500);
     });
 
-  });*/
+  });
 
-/* jQuery Notification 
+/* jQuery Notification */
 
 $(document).ready(function(){
 
@@ -298,10 +296,10 @@ $(document).ready(function() {
       noty({text: 'Some notifications goes here...',layout:'topRight',type:'information',timeout:2000});
   });
 
-});*/
+});
 
 
-/* Date picker 
+/* Date picker */
 
   $(function() {
     $('#datetimepicker1').datetimepicker({
@@ -314,23 +312,23 @@ $(document).ready(function() {
       pickDate: false
     });
   });
-*/
 
 
 
-/* CL Editor 
+
+/* CL Editor */
 
 $(".cleditor").cleditor({
     width: "auto",
     height: "auto"
-});*/
+});
 
 /* Modal fix */
 
 $('.modal').appendTo($('body'));
 
-/* Pretty Photo for Gallery
+/* Pretty Photo for Gallery*/
 
 jQuery("a[class^='prettyPhoto']").prettyPhoto({
 overlay_gallery: false, social_tools: false
-});*/
+});

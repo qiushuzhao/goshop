@@ -64,6 +64,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resource> 
 	        }
 	        for (Resource resource : resourceLists) {
 	            Tree tree = new Tree();
+	            tree.setUrl(resource.getUrl());
 	            tree.setId(resource.getId());
 	            tree.setPid(resource.getPid());
 	            tree.setText(resource.getName());

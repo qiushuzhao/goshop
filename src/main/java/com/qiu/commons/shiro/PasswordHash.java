@@ -39,7 +39,7 @@ public class PasswordHash implements InitializingBean {
 	}
 	public static void main(String[] args) {
 		 //所需加密的参数  即  密码
-        String source = "123456";
+        String source = "123";
         //[盐] 一般为用户名 或 随机数
         String salt = "test";
         //加密次数
