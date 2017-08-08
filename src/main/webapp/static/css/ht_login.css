@@ -1,0 +1,46 @@
+/* reset */
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,hgroup,address,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,em,address{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+sup,sub{font-size:83%;}
+pre,code,samp{font-family:inherit;}
+textarea{overflow:auto;resize:none;}
+label{cursor:default;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
+body{background:#fff;}
+a,a:hover{color:#333;}
+
+body {font-weight: normal; line-height: 20px;  overflow: auto; height:100%; position:relative; }
+div, form, img, ul, ol, li, dl, dt, dd, table, td, p ,input{border:0; }
+li { list-style-type:none; padding:0; line-height:20px; }
+a, a:hover, a:link { border:none;}
+a:focus{outline:none;}
+a{outline: none;}
+
+/* 后台登录 */
+.ht_bodyer{width:100%; height:100%; background:#3e4347; position:fixed;}
+.ht_login{ width:400px; height:450px; position:absolute; left:50%; top:50%; margin-left:-215px; margin-top:-240px; background:#65696c; padding:15px;}
+.ht_login_box{ width:100%; float:left; background:#FFF;}
+.ht_login_box .top{ width:400px; height:120px; background:url(images/topimg1.png) no-repeat;}
+.ht_login_box .top p{font-size:32px; color:#FFF; font-weight:bold; font-family:"微软雅黑"; padding-top:42px; padding-left:115px;letter-spacing:3px;}
+.ht_login_box .bottom{padding:0 50px 50px; width:300px;}
+.ht_login_box .bottom .topimg2{ float:left; margin-left:7px; margin-top:-15px; z-index:2;  }
+.bottom_p1{ float:left; width:260px; height:40px; margin-top:20px; border-bottom:1px solid #ccc; padding-left:40px; background:url(images/user.png) no-repeat 10px 10px;}
+.bottom_p2{ float:left; width:260px; height:40px; margin-top:20px; border-bottom:1px solid #ccc; padding-left:40px; background:url(images/suo.png) no-repeat 10px 10px;}
+.bottom_p3{ float:left; width:160px; height:40px; margin-top:20px; border-bottom:1px solid #ccc; padding-left:40px; background: url(images/psd.png) no-repeat 10px 10px;}
+.bottom_p4{ float:left; width:100px; height:40px; margin-top:20px; }
+.bottom_p4 img{ float:right; width:80px; height:40px;}
+.input1{width:100%; height:40px; line-height:38px; font-size:14px; color:#333;   }
+.btn{ float:left;width:300px; height:40px; border:0; background: url(images/btn_bg.png) repeat-x; margin-top:40px; margin-bottom:50px; color:#FFF; font-family:"微软雅黑"; font-size:18px; cursor:pointer; }
+.ht_fooder{width:100%; text-align:center; font-size:12px; color:#999; position:absolute; top:50%; left:0; margin-top:270px;}
+
+

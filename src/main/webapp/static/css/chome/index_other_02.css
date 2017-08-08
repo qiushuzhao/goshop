@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+
+
+/*首页-1楼-*/
+.onefloor { width:1200px; margin:0 auto;}
+.onefloor h2 { height:34px; line-height:34px; width:100%; float:left; font-size:16px; color:#333333; border-bottom:1px solid #99d058; margin-top:15px;}
+.onefloor h2 b { font-weight:bold; float:left; margin-left:15px;}
+.onefloor h2 span {float:right; color:#666666;font-family:"微软雅黑"; font-size:12px; }
+.onefloor h2 img { float: left;}
+.onefloor_list { width:1198px; height:445px; float:left; margin:12px 0; border:1px solid #e3e3e3;}
+.onefloor_list h1 { width:290px; height:445px; float:left; border-right:1px solid #e3e3e3;}
+.onefloor_list h1 img { width:290px; height:445px; float:left;}
+
+.onefloor_list_dd { width:453px; float:left; height:445px;}
+.onefloor_list_dd ul li { width:225px; height:222px; float:left; background:#fff; overflow:hidden;cursor: pointer; border-right:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3;}
+.onefloor_list_dd ul li h3 { width:190px; float:left; height:134px; position: relative; z-index:1; padding:10px 17px;}
+.onefloor_list_dd ul li h3 img { float:left; width:190px; height:134px;}
+.onefloor_list_zi h2 { background:#fff; font-size:14px; line-height:22px; width:215px; float:left; color:#323232; padding:0px 5px 5px 5px; height:44px; overflow:hidden; margin:0 15px;}
+.onefloor_list_zi p { background:#fff;font-size:14px; width:215px;float:left;color:#ea3838; line-height:22px; font-size:22px; font-family:"微软雅黑"; margin:0; padding:10px 18px;}
+.onefloor_list_zi p span { float:left; font-size:14px;}
+.onefloor_list_zi p b { float:left; font-size:12px; font-weight:normal; color:#b2b2b2; text-decoration:line-through; margin-left:5px;}
+.onefloor_add { background:#99d156 url(../../images/pchome/images/top_gwc_bai.png) no-repeat 55px 13px; font-size:16px; text-indent:25px;line-height:40px;color: #FFF; float:left;width:225px;border: medium none;cursor: pointer;}
+
+.onefloor_list_tt { width:231px; float:left; height:445px;}
+.onefloor_list_tt ul li { height:138px; float:left; width:221px; padding:5px; border-bottom:1px solid #e3e3e3;}
+.onefloor_list_tt ul li h2 { width:100px; height:100px; float:left; margin:0 5px 0 0; border:0;}
+.onefloor_list_tt ul li h2 img { width:100px; height:100px; float:left;}
+.onefloor_list_tt ul li span { float:left;color:#ea3838; line-height:30px; margin-top:3px;}
+.onefloor_list_tt ul li b { float:left; font-size:12px; font-weight:normal; color:#b2b2b2; text-decoration:line-through;}
+.onefloor_list_tt ul li h3 {cursor: pointer; height:30px; float: left; color:#fff; background:url(../../images/pchome/images/onefloor_qg.png) no-repeat; width:90px; line-height:30px; text-indent:10px; margin-top:8px; }
+.onefloor_list_tt ul li p { width:100%; float:left; margin-top:3px; line-height:19px; }
+
+
+/*首页-2楼-*/
+.twofloor { width:1200px; margin:0 auto;}
+.twofloor ul { width:100%; float:left; margin:12px 0;}
+
+
+.twofloor_list { width:290px; height:376px; float:left; margin-right:10px; overflow:hidden; border-radius:14px;cursor: pointer; border:1px solid #e8e8e8;
+-moz-box-shadow:0px 3px 1px #e6e6e6;               /* For Firefox3.6+ */
+-webkit-box-shadow:0px 3px 1px #e6e6e6;            /* For Chrome5+, Safari5+ */
+box-shadow:0px 3px 1px #e6e6e6;                    /* For Latest Opera */}
+.twofloor_list h3 { width:290px; float:left; height:290px;}
+.twofloor_list h3 img { float:left; width:290px; height:290px;}
+.twofloor_list h1 { width:24px; height:24px; position: absolute; z-index:2;padding: 5px 0 0 260px;}
+.twofloor_list h2 { background:#fff; font-size:14px; line-height:22px; width:270px; float:left; color:#323232; padding:5px 10px; height:44px; overflow:hidden;}
+.twofloor_list p { background:#fff;font-size:14px; width:270px; padding:10px 10px 0 10px; float:left;color:#ea3838; line-height:22px; font-size:22px; font-family:"微软雅黑"; }
+.twofloor_list p span { float:left; font-size:16px; font-weight:bold;}
+.twofloor_list p b { width:90px; height:22px; line-height:22px; float:right;  color:#fff; font-size:11px;font-family:"微软雅黑"; background:url(../../images/pchome/images/qiang_time.png); font-weight:normal;}
+.twofloor_list p strong { float:left; font-size:14px;font-weight:normal; color:#b2b2b2; text-decoration:line-through; margin-left:5px; display:inline;}
+
+/*首页-中间banner-*/
+.mid_banner { width:1200px;margin:0 auto;}
+.mid_banner img { float:left; width:1200px;}
+
+/*首页-3楼-*/
+.threefloor { width:1200px; margin:0 auto;}
+
