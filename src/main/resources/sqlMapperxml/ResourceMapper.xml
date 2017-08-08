@@ -2,5 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qiu.dao.ResourceInfoDao">
 
-	
+	<resultMap type="com.qiu.entity.SystemMenu" id="menuMap">
+		<result property="id" column="menuId" />
+		<result property="menuAddr" column="menuAddr" />
+		<result property="supMenuId" column="supMenuId" />
+		<result property="menuName" column="className" />
+		<result property="menuOperation" column="menuOperation" />
+		<result property="menuRel" column="menuRel" />
+	</resultMap>
+
+	<select id="queryMenu" parameterType="java.lang.String" resultMap="menuMap">
+		SELECT
+		m. NAME AS className,
+		t.role_id AS roleKey,
+		m.id AS menuId,
+		m.pid AS supMenuId,
+		m.url AS menuAddr,
+		m.seq AS menuNum,
+		m.menu_rel AS menuRel
+		FROM
+		role_resource t,
+		resource m
+		WHERE
+		t.resource_id = m.id
+		AND t.role_id in
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+                #{item}
+         </foreach>
+		ORDER BY
+		m.pid,
+		m.seq
+	</select>
+
 </mapper>

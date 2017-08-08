@@ -15,6 +15,7 @@ import com.qiu.dao.ResourceInfoDao;
 import com.qiu.dao.RoleInfoDao;
 import com.qiu.dao.UserRoleInfoDao;
 import com.qiu.entity.Resource;
+import com.qiu.entity.SystemMenu;
 import com.qiu.service.ResourceService;
 
 @Service
@@ -83,5 +84,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceInfoDao, Resource> 
 	        wrapper.orderBy("seq");
 	        return resourceInfoDao.selectList(wrapper);
 	    }
+
+	@Override
+	public List<SystemMenu> queryMenu(Set<String> list) {
+		return resourceInfoDao.queryMenu(list);
+	}
+
+	
 
 }

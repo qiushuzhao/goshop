@@ -1,6 +1,8 @@
 package com.qiu.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fz.fanya.mw.common.util.DateUtils;
 import com.qiu.commons.base.BaseController;
 import com.qiu.commons.result.Result;
+import com.qiu.commons.result.Tree;
 import com.qiu.commons.shiro.DreamCaptcha;
 import com.qiu.commons.shiro.ShiroUser;
 import com.qiu.commons.utils.StringUtils;
@@ -27,6 +31,7 @@ import com.qiu.commons.utils.WebUtils;
 import com.qiu.dao.UserRoleInfoDao;
 import com.qiu.entity.User;
 import com.qiu.entity.UserRole;
+import com.qiu.service.ResourceService;
 /**
  * Authentication failed for token submission
  * [org.apache.shiro.authc.UsernamePasswordToken - admin, rememberMe=false].
@@ -40,6 +45,10 @@ import com.qiu.entity.UserRole;
 public class LoginController extends BaseController{
 	@Autowired
     private DreamCaptcha dreamCaptcha;
+	
+    @Autowired
+    private ResourceService resourceService;
+	
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
@@ -112,6 +121,13 @@ public class LoginController extends BaseController{
      */
     @GetMapping("/index")
     public String index(Model model) {
+    	 ShiroUser shiroUser = getShiroUser();
+    	model.addAttribute("dateStr", DateUtils.getUserDate("a").replace("PM", "下午").replace("AM", "上午"));
+    	model.addAttribute("userName", getShiroUser().getName());
+    	List<Tree> selectTree = resourceService.selectTree(shiroUser);
+    	model.addAttribute("accountMenuList",selectTree);
+    	String menuId = request.getParameter("menuId");
+    	model.addAttribute("menuId", 1);
         return "index";
     }
     

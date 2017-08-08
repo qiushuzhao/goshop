@@ -57,7 +57,7 @@ function submitForm() {
         success: function(data) {
         	var obj = eval('(' + data + ')');
         	if(obj.success){
-        		 window.location.href = '/goshop/index';
+        		 window.location.href = '/goshop/index?menuId=1';
         	}else{
             		$("#imgid").attr("src","captcha.jpg?="+new Date())
             		layer.msg(obj.msg,{icon: 2});

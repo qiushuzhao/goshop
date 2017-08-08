@@ -16,8 +16,8 @@ import com.qiu.service.ResourceService;
  * @author：zhixuan.wang
  * @date：2015/10/1 14:51
  */
-@Controller
-@RequestMapping("/resource")
+//@Controller
+//@RequestMapping("/resource")
 public class ResourceController extends BaseController {
 
     @Autowired

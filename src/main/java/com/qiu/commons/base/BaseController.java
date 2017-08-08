@@ -5,10 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -34,6 +36,17 @@ import com.qiu.commons.utils.URLUtils;
  * @date：2015/10/1 14:51
  */
 public abstract class BaseController {
+	
+	  /**
+     * request对象
+     */
+    @Autowired
+    protected HttpServletRequest request;
+
+    @Autowired
+    protected HttpServletResponse response;
+	
+	
     // 控制器本来就是单例，这样似乎更加合理
     protected Logger logger = LogManager.getLogger(getClass());
 
