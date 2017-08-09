@@ -69,12 +69,12 @@ public class LoginController extends BaseController{
 		if (StringUtils.isBlank(user.getPassword())) {
 			throw new RuntimeException("密码不能为空");
 		}
-		if (StringUtils.isBlank(request.getParameter("captcha"))) {
-			throw new RuntimeException("验证码不能为空");
-		}
-		 if (!dreamCaptcha.validate(request, response, captcha)) {
-	            throw new RuntimeException("验证码错误");
-	        }
+//		if (StringUtils.isBlank(request.getParameter("captcha"))) {
+//			throw new RuntimeException("验证码不能为空");
+//		}
+//		 if (!dreamCaptcha.validate(request, response, captcha)) {
+//	            throw new RuntimeException("验证码错误");
+//	        }
 		Subject suser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(), user.getPassword());
 		//设置记住密码
