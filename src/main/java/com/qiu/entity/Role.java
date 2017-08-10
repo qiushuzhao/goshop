@@ -1,20 +1,44 @@
 package com.qiu.entity;
 
-public class Role {
-	/** 主键id */
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import java.io.Serializable;
+
+/**
+ * <p>
+ * 角色
+ * </p>
+ *
+ * @author 邱先生
+ * @since 2017-08-10
+ */
+public class Role extends Model<Role> {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 主键id
+     */
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
-
-	/** 角色名 */
+    /**
+     * 角色名
+     */
 	private String name;
-
-	/** 排序号 */
+    /**
+     * 排序号
+     */
 	private Integer seq;
-
-	/** 简介 */
+    /**
+     * 简介
+     */
 	private String description;
-
-	/** 状态 */
+    /**
+     * 状态
+     */
 	private Integer status;
+
 
 	public Long getId() {
 		return id;
@@ -55,5 +79,10 @@ public class Role {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
+
 }

@@ -1,20 +1,41 @@
 package com.qiu.entity;
 
-public class UserRole {
-	 /**
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
+
+/**
+ * <p>
+ * 用户角色
+ * </p>
+ *
+ * @author 邱先生
+ * @since 2017-08-10
+ */
+@TableName("user_role")
+public class UserRole extends Model<UserRole> {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
      * 主键id
      */
-    private Long id;
-
+	@TableId(value="id", type= IdType.AUTO)
+	private Long id;
     /**
      * 用户id
      */
-    private Long userId;
-
+	@TableField("user_id")
+	private Long userId;
     /**
      * 角色id
      */
-    private Long roleId;
+	@TableField("role_id")
+	private Long roleId;
+
 
 	public Long getId() {
 		return id;
@@ -38,6 +59,11 @@ public class UserRole {
 
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
 	}
 
 }

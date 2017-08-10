@@ -1,142 +1,155 @@
 package com.qiu.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+/**
+ * <p>
+ * 资源表
+ * </p>
+ *
+ * @author 邱先生
+ * @since 2017-08-10
+ */
+public class Resource extends Model<Resource> {
 
-public class Resource {
-	/** 主键 */
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
-	/** 资源名称 */
-	private String name;
+    /**
+     * ID
+     */
+	@TableId(value="id", type= IdType.AUTO)
+	private Integer id;
+    /**
+     * 菜单名称
+     */
+	@TableField("menu_name")
+	private String menuName;
+    /**
+     * 上级菜单id
+     */
+	@TableField("sup_menu_id")
+	private String supMenuId;
+    /**
+     * 链接地址
+     */
+	@TableField("menu_addr")
+	private String menuAddr;
+    /**
+     * 模块名称
+     */
+	@TableField("menu_rel")
+	private String menuRel;
+    /**
+     * 排序
+     */
+	@TableField("order_flag")
+	private String orderFlag;
+    /**
+     * 添加时间
+     */
+	private Date addtime;
+    /**
+     * 修改时间
+     */
+	private Date edittime;
+    /**
+     * 状态(0有效，1无效)
+     */
+	private String status;
+    /**
+     * 删除标志
+     */
+	private String isdelete;
 
-	/** 资源路径 */
-	private String url;
 
-	/** 打开方式 ajax,iframe */
-	private String openMode;
-
-	/** 资源介绍 */
-	private String description;
-
-	/** 资源图标 */
-	@JsonProperty("iconCls")
-	private String icon;
-
-	/** 父级资源id */
-	private Long pid;
-
-	/** 排序 */
-	private Integer seq;
-
-	/** 状态 */
-	private Integer status;
-
-	/** 打开的 */
-	private Integer opened;
-
-	/** 资源类别 */
-	private Integer resourceType;
-
-	/** 创建时间 */
-	private Date createTime;
-
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getMenuName() {
+		return menuName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getSupMenuId() {
+		return supMenuId;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setSupMenuId(String supMenuId) {
+		this.supMenuId = supMenuId;
 	}
 
-	public String getOpenMode() {
-		return openMode;
+	public String getMenuAddr() {
+		return menuAddr;
 	}
 
-	public void setOpenMode(String openMode) {
-		this.openMode = openMode;
+	public void setMenuAddr(String menuAddr) {
+		this.menuAddr = menuAddr;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getMenuRel() {
+		return menuRel;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setMenuRel(String menuRel) {
+		this.menuRel = menuRel;
 	}
 
-	public String getIcon() {
-		return icon;
+	public String getOrderFlag() {
+		return orderFlag;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setOrderFlag(String orderFlag) {
+		this.orderFlag = orderFlag;
 	}
 
-	public Long getPid() {
-		return pid;
+	public Date getAddtime() {
+		return addtime;
 	}
 
-	public void setPid(Long pid) {
-		this.pid = pid;
+	public void setAddtime(Date addtime) {
+		this.addtime = addtime;
 	}
 
-	public Integer getSeq() {
-		return seq;
+	public Date getEdittime() {
+		return edittime;
 	}
 
-	public void setSeq(Integer seq) {
-		this.seq = seq;
+	public void setEdittime(Date edittime) {
+		this.edittime = edittime;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public Integer getOpened() {
-		return opened;
+	public String getIsdelete() {
+		return isdelete;
 	}
 
-	public void setOpened(Integer opened) {
-		this.opened = opened;
+	public void setIsdelete(String isdelete) {
+		this.isdelete = isdelete;
 	}
 
-	public Integer getResourceType() {
-		return resourceType;
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
 	}
 
-	public void setResourceType(Integer resourceType) {
-		this.resourceType = resourceType;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	
-	 
 }

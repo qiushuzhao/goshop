@@ -1,16 +1,16 @@
 package com.qiu.service;
 
-import java.util.Map;
-import java.util.Set;
-
-import com.baomidou.mybatisplus.service.IService;
 import com.qiu.entity.Role;
+import com.baomidou.mybatisplus.service.IService;
 
+/**
+ * <p>
+ * 角色 服务类
+ * </p>
+ *
+ * @author 邱先生
+ * @since 2017-08-10
+ */
 public interface RoleService extends IService<Role> {
-	/**
-	 * 查询永固角色和资源
-	 * @param userId
-	 * @return
-	 */
-	Map<String, Set<String>> selectResourceMapByUserId(Integer userId);
+	
 }
